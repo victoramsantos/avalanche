@@ -241,15 +241,10 @@ common-build: promu
 	@echo ">> building binaries"
 	GO111MODULE=$(GO111MODULE) $(PROMU) build --prefix $(PREFIX) $(PROMU_BINARIES)
 
-.PHONY: common-localbuild
-common-localbuild:
-	@echo ">> building binaries"
-	GO111MODULE=$(GO111MODULE) $(PROMU) build --prefix $(PREFIX) $(PROMU_BINARIES)
-	@echo ">> copying binary to .build/linux-amd64"
-	mkdir -p .build/linux-amd64
-	cp avalanche .build/linux-amd64
+.PHONY: common-docker_local_build
+common-docker_local_build:
 	@echo ">> building docker image"
-	docker build -t "avalanche-local:latest" ./
+	docker build -f Dockerfile_local -t "avalanche-local:latest" ./
 
 .PHONY: common-tarball
 common-tarball: promu

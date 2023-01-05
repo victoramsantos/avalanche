@@ -1,0 +1,10 @@
+FROM golang:1.19
+
+RUN mkdir "avalanche"
+COPY . /avalanche
+
+RUN cd /avalanche && \
+    go build cmd/avalanche.go
+
+EXPOSE      9101
+ENTRYPOINT  [ "/avalanche/avalanche" ]
